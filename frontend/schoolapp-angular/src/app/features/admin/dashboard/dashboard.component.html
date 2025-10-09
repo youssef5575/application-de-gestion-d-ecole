@@ -33,23 +33,23 @@
         <mat-icon>class</mat-icon>
       </mat-card-header>
       <mat-card-content>
-        <h2>0</h2>
+        <h2>{{ totalClasses }}</h2>
         <p>Classes</p>
-        <button mat-raised-button disabled>
-          Bientôt disponible
+        <button mat-raised-button (click)="navigateToClasses()">
+          Gérer les classes
         </button>
       </mat-card-content>
     </mat-card>
 
     <mat-card class="stat-card notes-card">
       <mat-card-header>
-        <mat-icon>assignment</mat-icon>
+        <mat-icon>menu_book</mat-icon>
       </mat-card-header>
       <mat-card-content>
-        <h2>0</h2>
-        <p>Notes</p>
-        <button mat-raised-button disabled>
-          Bientôt disponible
+        <h2>{{ totalMatieres }}</h2>
+        <p>Matières</p>
+        <button mat-raised-button (click)="navigateToMatieres()">
+          Gérer les matières
         </button>
       </mat-card-content>
     </mat-card>

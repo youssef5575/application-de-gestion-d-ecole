@@ -9,6 +9,8 @@ public class UnitOfWork : IUnitOfWork
     private readonly SchoolDbContext _context;
     private IRepository<Eleve>? _eleveRepository;
     private IRepository<Enseignant>? _enseignantRepository;
+    private IRepository<Matiere>? _matiereRepository;
+    private IRepository<Classe>? _classeRepository;
 
     public UnitOfWork(SchoolDbContext context)
     {
@@ -20,6 +22,12 @@ public class UnitOfWork : IUnitOfWork
 
     public IRepository<Enseignant> EnseignantRepository =>
         _enseignantRepository ??= new EfRepository<Enseignant>(_context);
+
+    public IRepository<Matiere> MatiereRepository =>
+        _matiereRepository ??= new EfRepository<Matiere>(_context);
+
+    public IRepository<Classe> ClasseRepository =>
+        _classeRepository ??= new EfRepository<Classe>(_context);
 
     public async Task<int> SaveChangesAsync(CancellationToken ct = default)
     {

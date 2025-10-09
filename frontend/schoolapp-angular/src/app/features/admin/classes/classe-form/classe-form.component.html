@@ -1,0 +1,55 @@
+<div class="classe-form-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <button mat-icon-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        {{ isEditMode ? 'Modifier' : 'Ajouter' }} une classe
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="classeForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Code</mat-label>
+            <input matInput formControlName="code" placeholder="Ex: 6A">
+            <mat-error *ngIf="classeForm.get('code')?.hasError('required')">
+              Code requis
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Libellé</mat-label>
+            <input matInput formControlName="libelle" placeholder="Ex: Sixième A">
+            <mat-error *ngIf="classeForm.get('libelle')?.hasError('required')">
+              Libellé requis
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Niveau</mat-label>
+            <input matInput formControlName="niveau" placeholder="Ex: Collège">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Capacité Max</mat-label>
+            <input matInput type="number" formControlName="capaciteMax" placeholder="Ex: 30">
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button type="button" (click)="goBack()">
+            Annuler
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="loading || classeForm.invalid">
+            {{ loading ? 'En cours...' : (isEditMode ? 'Modifier' : 'Créer') }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

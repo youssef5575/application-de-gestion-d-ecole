@@ -6,6 +6,10 @@ import { EleveListComponent } from './features/admin/eleves/eleve-list/eleve-lis
 import { EleveFormComponent } from './features/admin/eleves/eleve-form/eleve-form.component';
 import { EnseignantListComponent } from './features/admin/enseignants/enseignant-list/enseignant-list.component';
 import { EnseignantFormComponent } from './features/admin/enseignants/enseignant-form/enseignant-form.component';
+import { MatiereListComponent } from './features/admin/matieres/matiere-list/matiere-list.component';
+import { MatiereFormComponent } from './features/admin/matieres/matiere-form/matiere-form.component';
+import { ClasseListComponent } from './features/admin/classes/classe-list/classe-list.component';
+import { ClasseFormComponent } from './features/admin/classes/classe-form/classe-form.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,7 +25,13 @@ export const routes: Routes = [
       { path: 'eleves/edit/:id', component: EleveFormComponent },
       { path: 'enseignants', component: EnseignantListComponent },
       { path: 'enseignants/new', component: EnseignantFormComponent },
-      { path: 'enseignants/edit/:id', component: EnseignantFormComponent }
+      { path: 'enseignants/edit/:id', component: EnseignantFormComponent },
+      { path: 'matieres', component: MatiereListComponent },
+      { path: 'matieres/new', component: MatiereFormComponent },
+      { path: 'matieres/edit/:id', component: MatiereFormComponent },
+      { path: 'classes', component: ClasseListComponent },
+      { path: 'classes/new', component: ClasseFormComponent },
+      { path: 'classes/edit/:id', component: ClasseFormComponent }
     ]
   },
   { path: '**', redirectTo: '/login' }

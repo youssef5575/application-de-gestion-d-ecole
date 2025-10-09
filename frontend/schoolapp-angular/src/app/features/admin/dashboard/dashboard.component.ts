@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { EleveService } from '../../../core/services/eleve.service';
 import { EnseignantService } from '../../../core/services/enseignant.service';
+import { MatiereService } from '../../../core/services/matiere.service';
+import { ClasseService } from '../../../core/services/classe.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,11 +24,15 @@ import { EnseignantService } from '../../../core/services/enseignant.service';
 export class DashboardComponent implements OnInit {
   totalEleves = 0;
   totalEnseignants = 0;
+  totalMatieres = 0;
+  totalClasses = 0;
   loading = true;
 
   constructor(
     private eleveService: EleveService,
     private enseignantService: EnseignantService,
+    private matiereService: MatiereService,
+    private classeService: ClasseService,
     private router: Router
   ) {}
 
@@ -45,10 +51,24 @@ export class DashboardComponent implements OnInit {
     this.enseignantService.getAll().subscribe({
       next: (enseignants) => {
         this.totalEnseignants = enseignants.length;
+      },
+      error: (error) => console.error('Error loading enseignants:', error)
+    });
+
+    this.matiereService.getAll().subscribe({
+      next: (matieres) => {
+        this.totalMatieres = matieres.length;
+      },
+      error: (error) => console.error('Error loading matieres:', error)
+    });
+
+    this.classeService.getAll().subscribe({
+      next: (classes) => {
+        this.totalClasses = classes.length;
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error loading enseignants:', error);
+        console.error('Error loading classes:', error);
         this.loading = false;
       }
     });
@@ -60,5 +80,13 @@ export class DashboardComponent implements OnInit {
 
   navigateToEnseignants(): void {
     this.router.navigate(['/admin/enseignants']);
+  }
+  
+  navigateToMatieres(): void {
+    this.router.navigate(['/admin/matieres']);
+  }
+
+  navigateToClasses(): void {
+    this.router.navigate(['/admin/classes']);
   }
 }

@@ -1,0 +1,60 @@
+.matiere-list-container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+  border-radius: 4px;
+
+  mat-card-title {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    margin: 0;
+
+    button {
+      color: white;
+      margin-right: 10px;
+    }
+  }
+
+  button[color="primary"] {
+    background: white;
+    color: #43e97b;
+  }
+}
+
+.loading-container, .empty-state {
+  text-align: center;
+  padding: 40px;
+}
+
+.empty-state mat-icon {
+  font-size: 80px;
+  width: 80px;
+  height: 80px;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+
+  th {
+    font-weight: bold;
+    background: #f5f5f5;
+  }
+
+  td, th {
+    padding: 15px;
+  }
+}
