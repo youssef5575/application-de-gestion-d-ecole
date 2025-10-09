@@ -1,0 +1,42 @@
+# .NET
+backend/**/bin/
+backend/**/obj/
+backend/**/*.user
+backend/**/*.suo
+backend/.vs/
+backend/**/.vs/
+backend/**/*.DotSettings.user
+
+# Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/*.log
+frontend/.nx/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment & Secrets
+.env
+*.secrets.json
+appsettings.Development.json
+
+# Database
+*.db
+*.sqlite
+*.mdf
+*.ldf
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Build artifacts
+*.dll
+*.exe
+*.pdb

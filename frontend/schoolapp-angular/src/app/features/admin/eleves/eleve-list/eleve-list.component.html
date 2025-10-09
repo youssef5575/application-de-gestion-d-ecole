@@ -1,0 +1,73 @@
+<div class="eleve-list-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <button mat-icon-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        Gestion des Élèves
+      </mat-card-title>
+      <button mat-raised-button color="primary" (click)="addEleve()">
+        <mat-icon>add</mat-icon>
+        Ajouter un élève
+      </button>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-container">
+        <p>Chargement...</p>
+      </div>
+
+      <div *ngIf="!loading && eleves.length === 0" class="empty-state">
+        <mat-icon>school</mat-icon>
+        <p>Aucun élève trouvé</p>
+        <button mat-raised-button color="primary" (click)="addEleve()">
+          Ajouter le premier élève
+        </button>
+      </div>
+
+      <table mat-table [dataSource]="eleves" class="mat-elevation-z8" *ngIf="!loading && eleves.length > 0">
+        
+        <ng-container matColumnDef="matricule">
+          <th mat-header-cell *matHeaderCellDef>Matricule</th>
+          <td mat-cell *matCellDef="let eleve">{{ eleve.matricule }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef>Nom</th>
+          <td mat-cell *matCellDef="let eleve">{{ eleve.nom }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="prenom">
+          <th mat-header-cell *matHeaderCellDef>Prénom</th>
+          <td mat-cell *matCellDef="let eleve">{{ eleve.prenom }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let eleve">{{ eleve.email || '-' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="telephone">
+          <th mat-header-cell *matHeaderCellDef>Téléphone</th>
+          <td mat-cell *matCellDef="let eleve">{{ eleve.telephone || '-' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let eleve">
+            <button mat-icon-button color="primary" (click)="editEleve(eleve.id!)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteEleve(eleve.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

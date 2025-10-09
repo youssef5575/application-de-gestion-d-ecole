@@ -1,0 +1,78 @@
+<div class="enseignant-form-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <button mat-icon-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        {{ isEditMode ? 'Modifier' : 'Ajouter' }} un enseignant
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="enseignantForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Matricule</mat-label>
+            <input matInput formControlName="matricule" placeholder="Ex: ENS2024001">
+            <mat-error *ngIf="enseignantForm.get('matricule')?.hasError('required')">
+              Matricule requis
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="nom" placeholder="Nom de famille">
+            <mat-error *ngIf="enseignantForm.get('nom')?.hasError('required')">
+              Nom requis
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Prénom</mat-label>
+            <input matInput formControlName="prenom" placeholder="Prénom">
+            <mat-error *ngIf="enseignantForm.get('prenom')?.hasError('required')">
+              Prénom requis
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="exemple@email.com">
+            <mat-error *ngIf="enseignantForm.get('email')?.hasError('required')">
+              Email requis
+            </mat-error>
+            <mat-error *ngIf="enseignantForm.get('email')?.hasError('email')">
+              Email invalide
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Téléphone</mat-label>
+            <input matInput formControlName="telephone" placeholder="+216 12 345 678">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Spécialité</mat-label>
+            <input matInput formControlName="specialite" placeholder="Ex: Mathématiques, Français">
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button type="button" (click)="goBack()">
+            Annuler
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="loading || enseignantForm.invalid">
+            {{ loading ? 'En cours...' : (isEditMode ? 'Modifier' : 'Créer') }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
