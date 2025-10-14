@@ -7,6 +7,8 @@ public class Classe
     public string Libelle { get; set; } = string.Empty;
     public string? Niveau { get; set; }
     public int? CapaciteMax { get; set; }
+    public ICollection<Eleve> Eleves { get; set; } = new List<Eleve>(); 
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
 }

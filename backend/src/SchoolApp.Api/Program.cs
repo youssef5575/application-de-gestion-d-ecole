@@ -8,6 +8,7 @@ using SchoolApp.Domain.Interfaces;
 using SchoolApp.Infrastructure.Data;
 using SchoolApp.Infrastructure.Identity;
 using SchoolApp.Infrastructure.Repositories;
+using SchoolApp.Infrastructure.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -64,7 +65,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Repository & UnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+builder.Services.AddScoped<IAffectationService, AffectationService>();
 // CORS
 builder.Services.AddCors(options =>
 {

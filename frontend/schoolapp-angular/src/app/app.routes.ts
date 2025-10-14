@@ -10,6 +10,8 @@ import { MatiereListComponent } from './features/admin/matieres/matiere-list/mat
 import { MatiereFormComponent } from './features/admin/matieres/matiere-form/matiere-form.component';
 import { ClasseListComponent } from './features/admin/classes/classe-list/classe-list.component';
 import { ClasseFormComponent } from './features/admin/classes/classe-form/classe-form.component';
+import { EleveToClasseComponent } from './features/admin/affectations/eleve-to-classe/eleve-to-classe.component';
+import { EnseignantToMatiereComponent } from './features/admin/affectations/enseignant-to-matiere/enseignant-to-matiere.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -31,7 +33,9 @@ export const routes: Routes = [
       { path: 'matieres/edit/:id', component: MatiereFormComponent },
       { path: 'classes', component: ClasseListComponent },
       { path: 'classes/new', component: ClasseFormComponent },
-      { path: 'classes/edit/:id', component: ClasseFormComponent }
+      { path: 'classes/edit/:id', component: ClasseFormComponent },
+      { path: 'affectations/eleve-to-classe', component: EleveToClasseComponent },
+      { path: 'affectations/enseignant-to-matiere', component: EnseignantToMatiereComponent }
     ]
   },
   { path: '**', redirectTo: '/login' }

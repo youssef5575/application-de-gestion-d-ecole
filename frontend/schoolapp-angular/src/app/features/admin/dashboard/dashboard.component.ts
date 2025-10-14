@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,7 +16,8 @@ import { ClasseService } from '../../../core/services/classe.service';
     CommonModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    RouterLink  // ← IMPORTANT
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -81,7 +82,7 @@ export class DashboardComponent implements OnInit {
   navigateToEnseignants(): void {
     this.router.navigate(['/admin/enseignants']);
   }
-  
+
   navigateToMatieres(): void {
     this.router.navigate(['/admin/matieres']);
   }

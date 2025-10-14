@@ -58,8 +58,18 @@
   <div class="welcome-message">
     <mat-card>
       <mat-card-content>
-        <h3>Bienvenue sur l'application de gestion scolaire</h3>
-        <p>Utilisez les cartes ci-dessus pour accéder aux différentes fonctionnalités.</p>
+        <h3>Affectations</h3>
+        <p>Gérer les relations entre élèves, classes, enseignants et matières</p>
+        <div class="affectation-buttons">
+          <button mat-raised-button color="primary" routerLink="/admin/affectations/eleve-to-classe">
+            <mat-icon>assignment_ind</mat-icon>
+            Affecter Élèves aux Classes
+          </button>
+          <button mat-raised-button color="accent" routerLink="/admin/affectations/enseignant-to-matiere">
+            <mat-icon>school</mat-icon>
+            Affecter Enseignants aux Matières
+          </button>
+        </div>
       </mat-card-content>
     </mat-card>
   </div>

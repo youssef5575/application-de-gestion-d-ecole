@@ -11,6 +11,8 @@ public class Enseignant
     public string Email { get; set; } = string.Empty;
     public string? Telephone { get; set; }
     public string? Specialite { get; set; }
+    public ICollection<EnseignantMatiere> EnseignantMatieres { get; set; } = new List<EnseignantMatiere>(); 
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
 }

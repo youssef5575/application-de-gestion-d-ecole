@@ -1,0 +1,93 @@
+<div class="affectation-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <button mat-icon-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        Affecter Élèves aux Classes
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- FORMULAIRE D'AFFECTATION -->
+      <div class="affectation-form">
+        <h3>Nouvelle Affectation</h3>
+        <form [formGroup]="affectationForm" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Sélectionner un élève</mat-label>
+              <mat-select formControlName="eleveId">
+                <mat-option *ngFor="let eleve of eleves" [value]="eleve.id">
+                  {{ eleve.matricule }} - {{ eleve.nom }} {{ eleve.prenom }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="affectationForm.get('eleveId')?.hasError('required')">
+                Élève requis
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Sélectionner une classe</mat-label>
+              <mat-select formControlName="classeId">
+                <mat-option [value]="null">Aucune classe</mat-option>
+                <mat-option *ngFor="let classe of classes" [value]="classe.id">
+                  {{ classe.code }} - {{ classe.libelle }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="loading || affectationForm.invalid">
+              {{ loading ? 'En cours...' : 'Affecter' }}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- LISTE DES AFFECTATIONS -->
+      <div class="affectations-list">
+        <h3>Liste des Affectations</h3>
+        <table mat-table [dataSource]="elevesWithClasse" class="mat-elevation-z8">
+          
+          <ng-container matColumnDef="matricule">
+            <th mat-header-cell *matHeaderCellDef>Matricule</th>
+            <td mat-cell *matCellDef="let eleve">{{ eleve.matricule }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="nom">
+            <th mat-header-cell *matHeaderCellDef>Nom</th>
+            <td mat-cell *matCellDef="let eleve">{{ eleve.nom }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="prenom">
+            <th mat-header-cell *matHeaderCellDef>Prénom</th>
+            <td mat-cell *matCellDef="let eleve">{{ eleve.prenom }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="classe">
+            <th mat-header-cell *matHeaderCellDef>Classe</th>
+            <td mat-cell *matCellDef="let eleve">
+              <span [class.no-classe]="!eleve.classeId">
+                {{ getClasseName(eleve.classeId) }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let eleve">
+              <button mat-icon-button color="warn" (click)="removeFromClasse(eleve.id!)" *ngIf="eleve.classeId">
+                <mat-icon>remove_circle</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

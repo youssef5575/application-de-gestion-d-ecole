@@ -31,11 +31,6 @@ public class SchoolDbContext : IdentityDbContext<ApplicationUser>
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.Telephone).HasMaxLength(20);
             entity.Property(e => e.Adresse).HasMaxLength(200);
-            
-            entity.HasOne<Classe>()
-                .WithMany()
-                .HasForeignKey(e => e.ClasseId)
-                .OnDelete(DeleteBehavior.SetNull);
         });
 
         modelBuilder.Entity<Enseignant>(entity =>
@@ -73,12 +68,12 @@ public class SchoolDbContext : IdentityDbContext<ApplicationUser>
             entity.HasKey(em => new { em.EnseignantId, em.MatiereId });
             
             entity.HasOne(em => em.Enseignant)
-                .WithMany()
+                .WithMany(e => e.EnseignantMatieres)
                 .HasForeignKey(em => em.EnseignantId)
                 .OnDelete(DeleteBehavior.Cascade);
             
             entity.HasOne(em => em.Matiere)
-                .WithMany()
+                .WithMany(m => m.EnseignantMatieres)
                 .HasForeignKey(em => em.MatiereId)
                 .OnDelete(DeleteBehavior.Cascade);
         });
