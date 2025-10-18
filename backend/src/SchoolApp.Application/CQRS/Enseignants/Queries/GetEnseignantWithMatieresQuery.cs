@@ -36,9 +36,9 @@ public class GetEnseignantWithMatieresHandler : IRequestHandler<GetEnseignantWit
             Specialite = enseignant.Specialite,
             Matieres = matieres.Select(m => new MatiereSimpleDto
             {
-                Id = (Guid)((dynamic)m).Id,
-                Code = ((dynamic)m).Code,
-                Libelle = ((dynamic)m).Libelle
+                Id = m.Id,
+                Code = m.Code,
+                Libelle = m.Libelle
             }).ToList()
         };
     }

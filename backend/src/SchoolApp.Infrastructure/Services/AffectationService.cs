@@ -48,7 +48,7 @@ public class AffectationService : IAffectationService
         await _context.SaveChangesAsync(ct);
     }
 
-    public async Task<IEnumerable<dynamic>> GetEnseignantWithMatieresAsync(Guid enseignantId, CancellationToken ct = default)
+    public async Task<IEnumerable<MatiereSimpleInfo>> GetEnseignantWithMatieresAsync(Guid enseignantId, CancellationToken ct = default)
     {
         var enseignant = await _context.Enseignants
             .Include(e => e.EnseignantMatieres)
@@ -56,13 +56,13 @@ public class AffectationService : IAffectationService
             .FirstOrDefaultAsync(e => e.Id == enseignantId, ct);
 
         if (enseignant == null)
-            return Enumerable.Empty<dynamic>();
+            return Enumerable.Empty<MatiereSimpleInfo>();
 
-        return enseignant.EnseignantMatieres.Select(em => new
+        return enseignant.EnseignantMatieres.Select(em => new MatiereSimpleInfo
         {
-            em.Matiere.Id,
-            em.Matiere.Code,
-            em.Matiere.Libelle
+            Id = em.Matiere.Id,
+            Code = em.Matiere.Code,
+            Libelle = em.Matiere.Libelle
         });
     }
 

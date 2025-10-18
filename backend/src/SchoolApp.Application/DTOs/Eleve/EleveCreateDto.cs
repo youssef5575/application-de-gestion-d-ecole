@@ -10,4 +10,5 @@ public class EleveCreateDto
     public string? Telephone { get; set; }
     public string? Adresse { get; set; }
     public Guid? ClasseId { get; set; }
+    public string? Password { get; set; }
 }

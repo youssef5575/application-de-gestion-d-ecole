@@ -12,6 +12,8 @@ import { ClasseListComponent } from './features/admin/classes/classe-list/classe
 import { ClasseFormComponent } from './features/admin/classes/classe-form/classe-form.component';
 import { EleveToClasseComponent } from './features/admin/affectations/eleve-to-classe/eleve-to-classe.component';
 import { EnseignantToMatiereComponent } from './features/admin/affectations/enseignant-to-matiere/enseignant-to-matiere.component';
+import { EnseignantDashboardComponent } from './features/enseignant/dashboard/dashboard.component';
+import { EleveDashboardComponent } from './features/eleve/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -36,6 +38,22 @@ export const routes: Routes = [
       { path: 'classes/edit/:id', component: ClasseFormComponent },
       { path: 'affectations/eleve-to-classe', component: EleveToClasseComponent },
       { path: 'affectations/enseignant-to-matiere', component: EnseignantToMatiereComponent }
+    ]
+  },
+  {
+    path: 'enseignant',
+    canActivate: [authGuard],
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: EnseignantDashboardComponent }
+    ]
+  },
+  {
+    path: 'eleve',
+    canActivate: [authGuard],
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: EleveDashboardComponent }
     ]
   },
   { path: '**', redirectTo: '/login' }

@@ -6,6 +6,7 @@ export interface Enseignant {
   email: string;
   telephone?: string;
   specialite?: string;
+  password?: string;
   createdAt?: string;
   updatedAt?: string;
 }

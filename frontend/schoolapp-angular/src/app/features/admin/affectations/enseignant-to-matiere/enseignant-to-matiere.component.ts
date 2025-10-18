@@ -14,6 +14,8 @@ import { MatiereService } from '../../../../core/services/matiere.service';
 import { AffectationService } from '../../../../core/services/affectation.service';
 import { Enseignant } from '../../../../core/models/enseignant.model';
 import { Matiere } from '../../../../core/models/matiere.model';
+import { forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-enseignant-to-matiere',
@@ -60,22 +62,29 @@ export class EnseignantToMatiereComponent implements OnInit {
 
   loadData(): void {
     this.loading = true;
-    
+    console.log('Loading enseignants and matieres...');
+
     this.enseignantService.getAll().subscribe({
       next: (data) => {
+        console.log('Enseignants loaded:', data);
         this.enseignants = data;
         this.loadEnseignantsWithMatieres();
       },
-      error: (error) => console.error('Error loading enseignants:', error)
+      error: (error) => {
+        console.error('Error loading enseignants:', error);
+        alert('Erreur lors du chargement des enseignants');
+      }
     });
 
     this.matiereService.getAll().subscribe({
       next: (data) => {
+        console.log('Matieres loaded:', data);
         this.matieres = data;
         this.loading = false;
       },
       error: (error) => {
         console.error('Error loading matieres:', error);
+        alert('Erreur lors du chargement des matières');
         this.loading = false;
       }
     });
@@ -83,13 +92,36 @@ export class EnseignantToMatiereComponent implements OnInit {
 
   loadEnseignantsWithMatieres(): void {
     this.enseignantsWithMatieres = [];
-    this.enseignants.forEach(ens => {
-      this.affectationService.getEnseignantWithMatieres(ens.id!).subscribe({
-        next: (data) => {
-          this.enseignantsWithMatieres.push(data);
-        },
-        error: (error) => console.error('Error loading enseignant matieres:', error)
-      });
+    console.log('Loading enseignants with matieres...', this.enseignants.length, 'enseignants');
+
+    if (this.enseignants.length === 0) {
+      console.log('No enseignants to load');
+      return;
+    }
+
+    // Create an array of observables for all enseignant requests
+    const requests = this.enseignants.map(ens =>
+      this.affectationService.getEnseignantWithMatieres(ens.id!).pipe(
+        catchError((error: any) => {
+          console.error('Error loading enseignant matieres for', ens.id, error);
+          // Return enseignant with empty matieres on error
+          return of({
+            ...ens,
+            matieres: []
+          });
+        })
+      )
+    );
+
+    // Wait for all requests to complete
+    forkJoin(requests).subscribe({
+      next: (results: any) => {
+        console.log('All enseignants with matieres loaded:', results);
+        this.enseignantsWithMatieres = results;
+      },
+      error: (error: any) => {
+        console.error('Error in forkJoin:', error);
+      }
     });
   }
 

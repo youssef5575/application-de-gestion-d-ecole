@@ -48,7 +48,8 @@ export class EleveFormComponent implements OnInit {
       dateNaissance: [''],
       email: ['', Validators.email],
       telephone: [''],
-      adresse: ['']
+      adresse: [''],
+      password: ['']
     });
   }
 

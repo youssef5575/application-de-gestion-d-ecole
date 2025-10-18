@@ -54,7 +54,19 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate(['/admin/dashboard']);
+        const currentUser = this.authService.getCurrentUser();
+
+        // Redirect based on user role
+        if (currentUser?.role === 'Admin') {
+          this.router.navigate(['/admin/dashboard']);
+        } else if (currentUser?.role === 'Enseignant') {
+          this.router.navigate(['/enseignant/dashboard']);
+        } else if (currentUser?.role === 'Eleve') {
+          this.router.navigate(['/eleve/dashboard']);
+        } else {
+          // Default fallback
+          this.router.navigate(['/admin/dashboard']);
+        }
       },
       error: (error) => {
         this.loading = false;

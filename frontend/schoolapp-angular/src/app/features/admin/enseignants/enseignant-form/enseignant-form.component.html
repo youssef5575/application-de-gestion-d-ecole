@@ -64,6 +64,14 @@
           </mat-form-field>
         </div>
 
+        <div class="form-row" *ngIf="!isEditMode">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Mot de passe (optionnel)</mat-label>
+            <input matInput type="password" formControlName="password" placeholder="Mot de passe pour la connexion">
+            <mat-hint>Si fourni, l'enseignant pourra se connecter</mat-hint>
+          </mat-form-field>
+        </div>
+
         <div class="form-actions">
           <button mat-raised-button type="button" (click)="goBack()">
             Annuler

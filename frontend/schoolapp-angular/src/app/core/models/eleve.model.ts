@@ -8,6 +8,7 @@ export interface Eleve {
   telephone?: string;
   adresse?: string;
   classeId?: string;
+  password?: string;
   createdAt?: string;
   updatedAt?: string;
 }

@@ -43,7 +43,8 @@ export class EnseignantFormComponent implements OnInit {
       prenom: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       telephone: [''],
-      specialite: ['']
+      specialite: [''],
+      password: ['']
     });
   }
 
